@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import LoginValidation from "../LoginValidation";
+import Validation from "./LoginValidation"
  
 
 function Login() {
