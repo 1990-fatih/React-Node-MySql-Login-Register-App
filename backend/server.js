@@ -9,7 +9,7 @@ app.use(express.json());
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "14785236",
+  password: "12345",
   database: "signup",
 });
 
@@ -33,9 +33,9 @@ app.post("/get", (req, res) => {
         return res.json("err");
       }
       if (data.length > 0) {
-        return res.json("success");
+        return res.json("Success");
       } else {
-        return res.json("fail");
+        return res.json("Faile");
       }
     });
   });

@@ -23,10 +23,10 @@ function Login() {
 
         setErrors(Validation(values))
 
-        if(errors.email ==="" && errors.password ===""){
+        if(true){
           axios.post('http://localhost:8800/get',values).then(res => 
             {
-            if(res.data==="success"){
+            if(res.data==="Success"){
               navigate("/home")
             }else{
               alert("No record existed")
