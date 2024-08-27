@@ -10,7 +10,7 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "12345",
-  database: "signup",
+  database: "quiz",
 });
 
 app.post("/singin", (req, res) => {
@@ -24,6 +24,17 @@ app.post("/singin", (req, res) => {
     return res.json(data);
   });
 });
+
+app.get("/frage", (req,res)=>
+  {
+      const q = "SELECT * FROM fragen"
+  
+      db.query(q,(err,data)=>{
+          if(err) return res.json(err) 
+              return res.json(data)
+  
+      })
+  })
 
 app.post("/get", (req, res) => {
     const q = "SELECT * FROM login WHERE `email`= ? AND `password`= ?";

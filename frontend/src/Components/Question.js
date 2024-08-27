@@ -1,16 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Question() {
+
+  const [fragen, setFragen] = useState(null);
+
+  useEffect(() => {
+    const fectAllBooks = async () => {
+      try {
+        const res = await axios.get("http://localhost:8800/frage");
+        setFragen(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fectAllBooks();
+  }, []);
+
   return (
     <div>
-      <div classNameName="container mt-5">
+      <div className="container bg-light py-5 mt-5 rounded-end ">
         <div classNameName="card">
-          <div style={{
+          <div
+            style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              marginTop:"2%"
-            }}  classNameName="justify-content-between p-3">
+              marginTop: "2%",
+            }}
+            classNameName="justify-content-between p-3"
+          >
             <div classNameName="image">
               <img
                 src="https://cdn1.iconfinder.com/data/icons/ionicons-fill-vol-2/512/logo-react-512.png"
@@ -30,7 +50,7 @@ function Question() {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              marginTop:"2%"
+              marginTop: "2%",
             }}
             classNameName="d-flex justify-content-around py-3"
           >
@@ -54,32 +74,50 @@ function Question() {
               aria-valuemax="100"
             ></div>
           </div>
-          <div style={{marginTop:"2%"}} classNameName="question">
-            <div style={{ textAlign: "left" }} classNameName="card">
-              <h3>Question of list</h3>
+          <div style={{ marginTop: "2%" }} className="question">
+            <div style={{ textAlign: "left" }} className="card">
+              <h3>{{fragen}}</h3>
             </div>
           </div>
-          <div classNameName="options">
-            <ol style={{ textAlign: "left" }} classNameName="card">
-              <li>
-                <div classNameName="card">options1</div>
-              </li>
-              <li>
-                <div classNameName="card">options1</div>
-              </li>
-              <li>
-                <div classNameName="card">options1</div>
-              </li>
-              <li>
-                <div classNameName="card">options1</div>
-              </li>
-            </ol>
+          <div className="list-group">
+            <Link>
+            <li
+              className="text-start list-group-item list-group-item-action m-1"
+            >
+              A second link item
+            </li>
+            </Link>
+            
+            <a
+              href="#"
+              className="text-start list-group-item list-group-item-action m-1"
+            >
+              A second link item
+            </a>
+            <a
+              href="#"
+              className="text-start list-group-item list-group-item-action m-1"
+            >
+              A second link item
+            </a>
+            <a
+              href="#"
+              className="text-start list-group-item list-group-item-action m-1"
+            >
+              A second link item
+            </a>
           </div>
-          {/* <div classNameName="d-flex justify-content-between">
-                    <button [disabled]="currentQuestion===0" classNameName="btn" (click)="previousQuestion()"><i classNameName="fa text-primary fa-chevron-left fa-3x" aria-hidden="true"></i></button>
-                    <button classNameName="btn" (click)="resetQuiz()"><i classNameName="fa fa-refresh text-primary fa-3x" aria-hidden="true"></i></button>
-                    <button classNameName="btn" (click)="nextQuestion()"><i classNameName="fa text-primary fa-chevron-right fa-3x" aria-hidden="true"></i></button>
-                </div> */}
+          <div  style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: "2%",
+            }} classNameName="d-flex justify-content-between">
+          <button type="button" class="btn btn-secondary btn-lg">Vorherige</button>
+          <button type="button" class="btn btn-secondary btn-lg">Refrech</button>
+          <button type="button" class="btn btn-secondary btn-lg">Nächste</button>
+ 
+          </div>
         </div>
       </div>
     </div>
