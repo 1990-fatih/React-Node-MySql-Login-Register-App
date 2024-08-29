@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 function Question() {
+  
   const [aktuelleFrage, setAktuelleFrage] = useState(null);
   const [aktuelleFrageIndex, setAktuelleFrageIndex] = useState(0);
   const [punkte, setPunkte] = useState(0);
@@ -52,7 +53,7 @@ function Question() {
   return (
     <div>
       <div className="container bg-light py-5 mt-5 rounded-end ">
-        <div classNameName="card">
+        <div className="card">
           <div
             style={{
               display: "flex",
@@ -60,16 +61,16 @@ function Question() {
               alignItems: "center",
               marginTop: "2%",
             }}
-            classNameName="justify-content-between p-3"
+            className="justify-content-between p-3"
           >
-            <div classNameName="image">
+            <div className="image">
               <img
                 src="https://cdn1.iconfinder.com/data/icons/ionicons-fill-vol-2/512/logo-react-512.png"
                 width="90"
                 alt="logo"
               />
             </div>
-            <div style={{ textAlign: "right" }} classNameName="quiz-header">
+            <div style={{ textAlign: "right" }} className="quiz-header">
               <h4 style={{ fontFamily: "cursive" }}>
                 React & TypeScript Quiz!
               </h4>
@@ -83,15 +84,15 @@ function Question() {
               alignItems: "center",
               marginTop: "2%",
             }}
-            classNameName="d-flex justify-content-around py-3"
+            className="d-flex justify-content-around py-3"
           >
-            <div classNameName="score">
+            <div className="score">
               <h5> Points</h5>
             </div>
-            <div classNameName="question-remain">
+            <div className="question-remain">
               <span style={{ fontFamily: "italic" }}>Question of List</span>
             </div>
-            <div classNameName="timer">
+            <div className="timer">
               <h5>Counter sec ⏱</h5>
             </div>
           </div>
@@ -124,19 +125,19 @@ function Question() {
               className="text-start list-group-item list-group-item-action m-1"
               onClick={() => handleAntwortClick(aktuelleFrage.antwort2)}
             >
-              {aktuelleFrage.antwort1}
+              {aktuelleFrage.antwort2}
             </a>
             <a
               className="text-start list-group-item list-group-item-action m-1"
               onClick={() => handleAntwortClick(aktuelleFrage.antwort3)}
             >
-              {aktuelleFrage.antwort1}
+              {aktuelleFrage.antwort3}
             </a>
             <a
               className="text-start list-group-item list-group-item-action m-1"
               onClick={() => handleAntwortClick(aktuelleFrage.antwort4)}
             >
-              {aktuelleFrage.antwort1}
+              {aktuelleFrage.antwort4}
             </a>
           </div>
           <div
@@ -146,7 +147,7 @@ function Question() {
               alignItems: "center",
               marginTop: "2%",
             }}
-            classNameName="d-flex justify-content-between"
+            className="d-flex justify-content-between"
           >
             <button type="button" class="btn btn-secondary btn-lg">
               Vorherige

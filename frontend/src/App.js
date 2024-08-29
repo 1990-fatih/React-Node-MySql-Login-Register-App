@@ -1,4 +1,5 @@
 import "./App.css";
+import FragenEingabe from "./Components/FragenEingabe";
 import Header from "./Components/Header";
 import Home from "./Components/Home";
 
@@ -17,6 +18,8 @@ function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="/question" element={<Question/>}/>
         <Route path="/home" element={<Home/>}/>
+        <Route path="/addFrage" element={<FragenEingabe/>}/>
+      
       </Routes>
       </BrowserRouter>
       

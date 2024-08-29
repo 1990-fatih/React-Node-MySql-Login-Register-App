@@ -9,12 +9,12 @@ app.use(express.json());
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "12345",
+  password: "14785236",
   database: "quiz",
 });
 
-app.post("/singin", (req, res) => {
-  const sql = "INSERT INTO login (`name`,`email`,`password`) VALUES(?)";
+app.post("/addFrage", (req, res) => {
+  const sql = "INSERT INTO fragen1 (`frageText`,`antwort1`,`antwort2`,`antwort3`,`antwort4`,`correct`) VALUES(?)";
 
   const values = [req.body.name, req.body.email, req.body.password];
   db.query(sql, [values], (err, data) => {

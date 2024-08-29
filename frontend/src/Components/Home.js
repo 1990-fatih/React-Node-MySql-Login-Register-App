@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -25,6 +25,9 @@ function Home() {
       
       <Link to="/question" >
         <button class="btn btn-primary btn-lg"> Start the Quiz!!</button>
+      </Link>
+      <Link to="/addFrage" >
+        <button class="btn btn-primary btn-lg">zu Admin</button>
       </Link>
     </div>
   );
