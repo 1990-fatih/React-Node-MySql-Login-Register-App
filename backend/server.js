@@ -27,7 +27,7 @@ app.post("/singin", (req, res) => {
 
 app.get("/frage", (req,res)=>
   {
-      const q = "SELECT * FROM fragen"
+      const q = "SELECT * FROM fragen1"
   
       db.query(q,(err,data)=>{
           if(err) return res.json(err) 

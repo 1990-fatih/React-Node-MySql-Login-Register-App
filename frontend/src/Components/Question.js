@@ -3,20 +3,51 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 function Question() {
-
-  const [fragen, setFragen] = useState(null);
+  const [aktuelleFrage, setAktuelleFrage] = useState(null);
+  const [aktuelleFrageIndex, setAktuelleFrageIndex] = useState(0);
+  const [punkte, setPunkte] = useState(0);
+  const [ergebnisAnzeigen, setErgebnisAnzeigen] = useState(false);
+  const [fragen, setFragen] = useState([]);
 
   useEffect(() => {
-    const fectAllBooks = async () => {
-      try {
-        const res = await axios.get("http://localhost:8800/frage");
-        setFragen(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fectAllBooks();
+    // Tüm soruları API'den çekiyoruz
+    axios
+      .get("http://localhost:8800/frage")
+      .then((response) => {
+        setFragen(response.data);
+        setAktuelleFrage(response.data[0]); // İlk soruyu ayarla
+      })
+      .catch((error) => console.error("Fehler beim Laden der Fragen:", error));
   }, []);
+
+  const handleAntwortClick = (antwort) => {
+    if (antwort === aktuelleFrage.correct) {
+      setPunkte(punkte + 1);
+    }
+  };
+
+  const handleNaechsteFrage = () => {
+    const naechsteFrageIndex = aktuelleFrageIndex + 1;
+    if (naechsteFrageIndex < fragen.length) {
+      setAktuelleFrageIndex(naechsteFrageIndex);
+      setAktuelleFrage(fragen[naechsteFrageIndex]);
+    } else {
+      setErgebnisAnzeigen(true);
+    }
+  };
+
+  if (ergebnisAnzeigen) {
+    return (
+      <div>
+        <h1>Quiz Beendet!</h1>
+        <p>Ergebnis: {punkte} richtige Antworten.</p>
+      </div>
+    );
+  }
+
+  if (!aktuelleFrage) {
+    return <div>Lädt...</div>;
+  }
 
   return (
     <div>
@@ -76,52 +107,64 @@ function Question() {
           </div>
           <div style={{ marginTop: "2%" }} className="question">
             <div style={{ textAlign: "left" }} className="card">
-              <h3>{{fragen}}</h3>
+              <h3>{aktuelleFrage.frageText}</h3>
             </div>
           </div>
           <div className="list-group">
             <Link>
-            <li
-              className="text-start list-group-item list-group-item-action m-1"
-            >
-              A second link item
-            </li>
+              <li
+                onClick={() => handleAntwortClick(aktuelleFrage.antwort1)}
+                className="text-start list-group-item list-group-item-action m-1"
+              >
+                {aktuelleFrage.antwort1}
+              </li>
             </Link>
-            
+
             <a
-              href="#"
               className="text-start list-group-item list-group-item-action m-1"
+              onClick={() => handleAntwortClick(aktuelleFrage.antwort2)}
             >
-              A second link item
+              {aktuelleFrage.antwort1}
             </a>
             <a
-              href="#"
               className="text-start list-group-item list-group-item-action m-1"
+              onClick={() => handleAntwortClick(aktuelleFrage.antwort3)}
             >
-              A second link item
+              {aktuelleFrage.antwort1}
             </a>
             <a
-              href="#"
               className="text-start list-group-item list-group-item-action m-1"
+              onClick={() => handleAntwortClick(aktuelleFrage.antwort4)}
             >
-              A second link item
+              {aktuelleFrage.antwort1}
             </a>
           </div>
-          <div  style={{
+          <div
+            style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
               marginTop: "2%",
-            }} classNameName="d-flex justify-content-between">
-          <button type="button" class="btn btn-secondary btn-lg">Vorherige</button>
-          <button type="button" class="btn btn-secondary btn-lg">Refrech</button>
-          <button type="button" class="btn btn-secondary btn-lg">Nächste</button>
- 
+            }}
+            classNameName="d-flex justify-content-between"
+          >
+            <button type="button" class="btn btn-secondary btn-lg">
+              Vorherige
+            </button>
+            <button type="button" class="btn btn-secondary btn-lg">
+              Refrech
+            </button>
+            <button
+              onClick={handleNaechsteFrage}
+              type="button"
+              class="btn btn-secondary btn-lg"
+            >
+              Nächste
+            </button>
           </div>
         </div>
       </div>
     </div>
   );
 }
-
 export default Question;
