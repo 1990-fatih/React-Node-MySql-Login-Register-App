@@ -90,7 +90,7 @@ function Question() {
               <h5> Points</h5>
             </div>
             <div className="question-remain">
-              <span style={{ fontFamily: "italic" }}>Question of List</span>
+              <span style={{ fontFamily: "italic" }}>Question of List {aktuelleFrage.frageId}/{fragen.length}</span>
             </div>
             <div className="timer">
               <h5>Counter sec ⏱</h5>

@@ -16,7 +16,18 @@ const db = mysql.createConnection({
 app.post("/addFrage", (req, res) => {
   const sql = "INSERT INTO fragen1 (`frageText`,`antwort1`,`antwort2`,`antwort3`,`antwort4`,`correct`) VALUES(?)";
 
-  const values = [req.body.name, req.body.email, req.body.password];
+  const values = [
+    
+    req.body.frageText,
+    req.body.antwort1,
+    req.body.antwort2,
+    req.body.antwort3,
+    req.body.antwort4,
+    req.body.correct
+
+  ];
+
+  
   db.query(sql, [values], (err, data) => {
     if (err) {
       return res.json("Error");
