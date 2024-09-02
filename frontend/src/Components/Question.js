@@ -39,6 +39,12 @@ function Question() {
 
   const handleVorherige = ()=>{
     const naechsteFrageIndex = aktuelleFrageIndex - 1;
+    if (naechsteFrageIndex < fragen.length) {
+      setAktuelleFrageIndex(naechsteFrageIndex);
+      setAktuelleFrage(fragen[naechsteFrageIndex]);
+    } else {
+      setErgebnisAnzeigen(true);
+    }
   }
 
   if (ergebnisAnzeigen) {
