@@ -37,6 +37,10 @@ function Question() {
     }
   };
 
+  const handleVorherige = ()=>{
+    const naechsteFrageIndex = aktuelleFrageIndex - 1;
+  }
+
   if (ergebnisAnzeigen) {
     return (
       <div>
@@ -149,7 +153,7 @@ function Question() {
             }}
             className="d-flex justify-content-between"
           >
-            <button type="button" class="btn btn-secondary btn-lg">
+            <button type="button" class="btn btn-secondary btn-lg" onClick={handleVorherige}>
               Vorherige
             </button>
             <button type="button" class="btn btn-secondary btn-lg">
