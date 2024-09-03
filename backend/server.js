@@ -9,7 +9,7 @@ app.use(express.json());
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "14785236",
+  password: "12345",
   database: "quiz",
 });
 
@@ -47,8 +47,8 @@ app.get("/frage", (req,res)=>
       })
   })
 
-app.post("/get", (req, res) => {
-    const q = "SELECT * FROM login WHERE `email`= ? AND `password`= ?";
+app.post("/login", (req, res) => {
+    const q = "SELECT * FROM users WHERE `email`= ? AND `password`= ?";
   
     db.query(q, [req.body.email, req.body.password], (err, data) => {
       if (err) {
@@ -61,6 +61,22 @@ app.post("/get", (req, res) => {
       }
     });
   });
+
+  app.get("/signIn", (req, res) => {
+    const sql = "INSERT INTO users (`userFirst_name`,`usersLast_name`,`email`,`usersPassword`,`usersGeburtsjahr`) VALUES(?)";
+  
+    const values = [
+      
+      req.body.userFirst_name,
+      req.body.usersLast_name,
+      req.body.email,
+      req.body.usersPassword,
+      req.body.usersGeburtsjahr
+     
+  
+    ];})
+
+ 
 app.listen(8800, () => {
   console.log("Database connected");
 });
