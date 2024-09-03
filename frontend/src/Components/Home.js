@@ -8,7 +8,7 @@ function Home() {
 
     const [values, setValues] = useState({
         email:'',
-        password:''
+        usersPassword:''
     })
 
     const [errors, setErrors] =useState({});
@@ -35,6 +35,11 @@ function Home() {
       }
   return (
     <div className="container bg-light py-5 mt-5 rounded-end">
+      <Link to={"/userRegister"}>
+      <button type="button" class="btn btn-secondary float-end btn-sm">Admin Panel</button>
+      </Link>
+      
+
       <h1 className="display-5 fw-bold">Welocme to Quiz App</h1>
       <p style={{ textAlign: "left" }} className="col-md-8 fs-4">
         This quiz will contains total 9 questions. Each Question holds 10 Points

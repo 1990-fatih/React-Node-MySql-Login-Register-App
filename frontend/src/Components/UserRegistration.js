@@ -15,7 +15,7 @@ function UserRegistration() {
     usersLast_name: "",
     email:"",
     usersPassword: "",
-    usersGeburtsjahr: ""
+    usersGeburtsjahr: "null"
   });
 
   const handleInput = (e) => {
