@@ -1,39 +1,7 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Validation from "./ValidationComp/LoginValidation";
-import axios from "axios";
+import React from "react";
 
-function Home() {
-  const navigate = useNavigate();
-
-  const [values, setValues] = useState({
-    email: "",
-    usersPassword: "",
-  });
-
-  const [errors, setErrors] = useState({});
-
-  const handleInput = (e) => {
-    setValues((prev) => ({ ...prev, [e.target.name]: [e.target.value] }));
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    setErrors(Validation(values));
-
-    if (true) {
-      axios
-        .post("http://localhost:8800/login", values)
-        .then((res) => {
-          if (res.data === "Success") {
-            navigate("/question");
-          } else {
-            alert("No record existed");
-          }
-        })
-        .catch((err) => console.log(err));
-    }
-  };
+export default function UserControlPanel({ users, deleteUser, aktulisieren})
+{
   return (
     <div className="container bg-light py-5 mt-5 rounded-end">
       <Link to={"/fragenManagement"}>
@@ -43,18 +11,30 @@ function Home() {
       </Link>
 
       <h1 className="display-5 fw-bold">Welocme to Quiz App</h1>
-      <p style={{ textAlign: "left" }} className="col-md-8 fs-4">
-        This quiz will contains total 9 questions. Each Question holds 10 Points
-      </p>
-      <h4 style={{ textAlign: "left" }}>Rules:</h4>
-      <ol style={{ textAlign: "left" }}>
-        <li>Correct Question gives you 10 points</li>
-        <li>Incorrect question gives to -10 points</li>
-        <li>You will have 60 sec to answer each question</li>
-        <li>Refereshing the page will reset the Quiz</li>
-      </ol>
-      <h1 style={{ fontFamily: "cursive" }}>All the best!!</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 style={{ fontFamily: "cursive" }}>User List</h1>
+
+      <table class="table table-success table-striped">
+      <thead>
+    <tr>
+      <th scope="col">User Id</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name </th>
+      <th scope="col">Password</th>
+      <th scope="col">Geburtsjahr</th>
+      <th scope="col">E-Mail</th>
+      <th scope="col" colSpan={"2"}>
+      Process
+    </th>
+    </tr>
+  </thead>
+  <tbody>
+   
+  </tbody>
+</table>
+}
+
+  
+      {/* <form onSubmit={handleSubmit}>
       
         <div
           style={{ fontFamily: "cursive", textAlign: "left" }}
@@ -108,10 +88,9 @@ function Home() {
         </Link>
         </div>
        
-      </form>
+      </form> */}
       <div className="pt-4" style={{ textAlign: "left" }}></div>
     </div>
   );
-}
-
-export default Home;
+};
+export default UserControlPanel;

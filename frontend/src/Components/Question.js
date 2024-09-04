@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 function Question() {
+  
   const [aktuelleFrage, setAktuelleFrage] = useState(null);
   const [aktuelleFrageIndex, setAktuelleFrageIndex] = useState(0);
   const [punkte, setPunkte] = useState(0);
@@ -36,8 +37,8 @@ function Question() {
     }
   };
 
-  const handleVorherige = () => {
-    if (aktuelleFrageIndex > 0) {
+  const handleVorherige = ()=>{
+    if(aktuelleFrageIndex>0){
       const naechsteFrageIndex = aktuelleFrageIndex - 1;
       if (naechsteFrageIndex < fragen.length) {
         setAktuelleFrageIndex(naechsteFrageIndex);
@@ -46,7 +47,8 @@ function Question() {
         setErgebnisAnzeigen(true);
       }
     }
-  };
+    
+  }
 
   if (ergebnisAnzeigen) {
     return (
@@ -101,9 +103,7 @@ function Question() {
               <h5> Points</h5>
             </div>
             <div className="question-remain">
-              <span style={{ fontFamily: "italic" }}>
-                Question of List {aktuelleFrage.frageId}/{fragen.length}
-              </span>
+              <span style={{ fontFamily: "italic" }}>Question of List {aktuelleFrage.frageId}/{fragen.length}</span>
             </div>
             <div className="timer">
               <h5>Counter sec ⏱</h5>
@@ -162,11 +162,7 @@ function Question() {
             }}
             className="d-flex justify-content-between"
           >
-            <button
-              type="button"
-              class="btn btn-secondary btn-lg"
-              onClick={handleVorherige}
-            >
+            <button type="button" class="btn btn-secondary btn-lg" onClick={handleVorherige}>
               Vorherige
             </button>
             <button type="button" class="btn btn-secondary btn-lg">
