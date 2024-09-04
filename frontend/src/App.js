@@ -4,28 +4,22 @@ import Header from "./Components/Header";
 import Home from "./Components/Home";
 import UserRegistration from "./Components/UserRegistration";
 import UserControlPanel from "./Components/AdminComponent/UserControlPanel";
-import AdminFragenmanagement from "./Components/AdminComponent/AdminFragenmanagement"
+import AdminFragenmanagement from "./Components/AdminComponent/AdminFragenmanagement";
 
 import Question from "./Components/Question";
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import axios from "axios";
+import React, {useState, useEffect} from "react";
 
 function App() {
 
-  const [users, setUsers] = useState([]);
-  const [user, setUser] = useState({
-    
-    userFirst_name: "",
-    usersLast_name: "",
-    email:"",
-    usersPassword: "",
-    usersGeburtsjahr: "null"
-  });
+ 
 
-  const deleteUser =(id) =>{
+  const deleteUser = (id) => {
     axios.delete(`delete/${id}`);
-    alert(`The User with id ${id} is deleted`)
-   }
+    alert(`The User with id ${id} is deleted`);
+  };
 
   return (
     <div className="App">
@@ -39,8 +33,11 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/addFrage" element={<FragenEingabe />} />
           <Route path="/userRegister" element={<UserRegistration />} />
-          <Route path="/fragenManagement" element={<FragenEingabe/>} />
-          <Route path="/userContol" element={<UserControlPanel users={users} deleteUser={deleteUser}/>} />
+          <Route path="/fragenManagement" element={<FragenEingabe />} />
+          <Route
+            path="/userContol"
+            element={<UserControlPanel/>}
+          />
         </Routes>
       </BrowserRouter>
     </div>
