@@ -165,9 +165,7 @@ function Question() {
             <button type="button" class="btn btn-secondary btn-lg" onClick={handleVorherige}>
               Vorherige
             </button>
-            <button type="button" class="btn btn-secondary btn-lg">
-              Refrech
-            </button>
+           
             <button
               onClick={handleNaechsteFrage}
               type="button"

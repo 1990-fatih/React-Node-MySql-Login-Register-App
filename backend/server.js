@@ -9,7 +9,7 @@ app.use(express.json());
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "14785236",
+  password: "12345",
   database: "quiz",
 });
 
@@ -42,6 +42,17 @@ app.get("/frage", (req, res) => {
     return res.json(data);
   });
 });
+
+app.delete("/deleteFrage/:id",(req,res)=>{
+  const FrageId = req.params.id;
+  const q = "DELETE FROM fragen1 WHERE frageId= ?"
+
+  db.query(q,[FrageId],(err,data)=>{
+      if(err) return res.json(err) 
+          return res.json("Frage has been deleted!!")
+  })
+
+})
 
 app.get("/user", (req, res) => {
   const q = "SELECT * FROM users";

@@ -4,23 +4,16 @@ import Header from "./Components/Header";
 import Home from "./Components/Home";
 import UserRegistration from "./Components/UserRegistration";
 import UserControlPanel from "./Components/AdminComponent/UserControlPanel";
-import AdminFragenmanagement from "./Components/AdminComponent/AdminFragenmanagement";
+import FragenControlPanel from "./Components/AdminComponent/FragenControlPanel";
 
 import Question from "./Components/Question";
 
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
-import axios from "axios";
-import React, {useState, useEffect} from "react";
+import React from "react";
+import AdminDashboard from "./Components/AdminComponent/AdminDashboard";
 
 function App() {
-
- 
-
-  const deleteUser = (id) => {
-    axios.delete(`delete/${id}`);
-    alert(`The User with id ${id} is deleted`);
-  };
-
+  
   return (
     <div className="App">
       <BrowserRouter>
@@ -33,11 +26,10 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/addFrage" element={<FragenEingabe />} />
           <Route path="/userRegister" element={<UserRegistration />} />
-          <Route path="/fragenManagement" element={<FragenEingabe />} />
-          <Route
-            path="/userContol"
-            element={<UserControlPanel/>}
-          />
+          <Route path="/FragenControlPanel" element={<FragenControlPanel />} />
+         
+          <Route path="/userContol" element={<UserControlPanel />} />
+          <Route path="/adminPanel" element={<AdminDashboard />} />
         </Routes>
       </BrowserRouter>
     </div>
