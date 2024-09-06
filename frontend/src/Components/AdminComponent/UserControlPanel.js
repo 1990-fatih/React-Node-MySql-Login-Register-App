@@ -50,12 +50,6 @@ function UserControlPanel() {
 
   return (
     <div className="container bg-light py-5 mt-5 rounded-end">
-      <Link to={"/fragenManagement"}>
-        <button type="button" class="btn btn-secondary float-end btn-sm">
-          Fragen Control Panel
-        </button>
-      </Link>
-
       <h1 className="display-5 fw-bold">Welocme to Quiz App</h1>
       <h1 style={{ fontFamily: "cursive" }}>User List</h1>
 

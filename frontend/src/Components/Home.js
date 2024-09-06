@@ -7,13 +7,18 @@ import { Modal } from "react-bootstrap";
 
 function Home() {
   const navigate = useNavigate();
-  const [show, setShow] = useState(false);
 
+  const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   const [values, setValues] = useState({
     email: "",
     usersPassword: "",
+  });
+  const [adminValues, setAdminValues] = useState({
+    adminEmail: "",
+    adminPassword: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -22,6 +27,10 @@ function Home() {
     setValues((prev) => ({ ...prev, [e.target.name]: [e.target.value] }));
   };
 
+   const handleAdminInput = (e) => {
+    setAdminValues((prev) => ({ ...prev, [e.target.name]: [e.target.value] }));
+  }; 
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -32,7 +41,7 @@ function Home() {
         .post("http://localhost:8800/login", values)
         .then((res) => {
           if (res.data === "Success") {
-            console.log("dogru")
+            
             navigate("/question");
           } else {
             alert("No record existed");
@@ -42,21 +51,19 @@ function Home() {
     }
   };
 
-  const handleAdminInput = (e) => {
-    setValues((prev) => ({ ...prev, [e.target.name]: [e.target.value] }));
-  };
+
 
   const handleAdminSubmit = (e) => {
     e.preventDefault();
 
-    setErrors(Validation(values));
+    setErrors(Validation(adminValues));
 
     if (true) {
       axios
-        .post("http://localhost:8800/adminLogin", values)
+        .post("http://localhost:8800/adminLogin", adminValues)
         .then((res) => {
           if (res.data === "Success") {
-            navigate("/question");
+            navigate("/adminPanel");
           } else {
             alert("No record existed");
           }
@@ -123,7 +130,6 @@ function Home() {
           >
             Start the Quiz!!
           </button>
-      
         </div>
 
         <div
@@ -142,15 +148,12 @@ function Home() {
           <Modal.Title>Admin Login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form
-            style={{ fontFamily: "cursive", textAlign: "center" }}
-            onSubmit={handleAdminSubmit}
-          >
+          <form style={{ fontFamily: "cursive", textAlign: "center" }}>
             <div style={{ fontFamily: "cursive", textAlign: "center" }}>
               <label for="">Enter your E-mail:</label>
               <input
                 type="email"
-                name="email"
+                name="adminEmail"
                 className="form-control"
                 onChange={handleAdminInput}
               />
@@ -159,7 +162,7 @@ function Home() {
               <label for="">Enter your Password:</label>
               <input
                 type="password"
-                name="password"
+                name="adminPassword"
                 className="form-control"
                 onChange={handleAdminInput}
               />
@@ -177,7 +180,7 @@ function Home() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleSubmit}>
+          <Button variant="primary" onClick={handleAdminSubmit}>
             Log In
           </Button>
         </Modal.Footer>

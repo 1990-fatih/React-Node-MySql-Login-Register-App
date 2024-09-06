@@ -1,51 +1,73 @@
-import React, { useState } from 'react';
-import { Col, Container, Row, Button } from 'react-bootstrap';
-import { Link, useNavigate } from "react-router-dom";
-import FragenControlPanel from './FragenControlPanel';
+import React, { useState } from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import UserControlPanel from "./UserControlPanel";
+import FragenControlPanel from "./FragenControlPanel";
+import FragenEingabe from "./FragenEingabe";
 
-function AdminLayout() {
-  
-    const navigate = useNavigate();
-    const component=useState([])
+function AdminDashboard() {
+  const [activeComponent, setActiveComponent] = useState("users");
 
-  const goToUsers = () => {
-    component=  <FragenControlPanel/>
-  };
-
-  const goToQuestions = () => {
-    navigate("/FragenControlPanel");
-  };
-
-  const goToAddQuestion = () => {
-    navigate("/userContol");
+  const renderComponent = () => {
+    switch (activeComponent) {
+      case "users":
+        return <UserControlPanel />;
+      case "add-fragenVerwaltung":
+        return <FragenControlPanel />;
+      case "add-question":
+        return <FragenEingabe />;
+      default:
+        return <UserControlPanel />;
+    }
   };
 
   return (
     <Container fluid>
       <Row>
-        {/* Sol Menü */}
         <Col sm={2} className="bg-light sidebar">
-          <h4>Admin Paneli</h4>
-          <Button variant="primary" className="mb-2" block onClick={goToUsers}>
-            Kullanıcı Yönetimi
-          </Button>
-          <Button variant="primary" className="mb-2" block onClick={goToQuestions}>
-            Soru Yönetimi
-          </Button>
-          <Button variant="primary" block onClick={goToAddQuestion}>
-            Yeni Soru Ekle
-          </Button>
+          <h4>Admin Dashboard</h4>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              {" "}
+              <Button
+                variant="primary"
+                className="mb-2"
+                block
+                onClick={() => setActiveComponent("users")}
+              >
+                Benutzer Verwaltung
+              </Button>
+            </li>
+            <li class="list-group-item">
+              {" "}
+              <Button
+                variant="primary"
+                className="mb-2"
+                block
+                onClick={() => setActiveComponent("add-fragenVerwaltung")}
+              >
+                Fragen Verwaltung
+              </Button>
+            </li>
+            <li class="list-group-item">
+              {" "}
+              <Button
+                variant="primary"
+                block
+                onClick={() => setActiveComponent("add-question")}
+              >
+                Fragen Eingabe
+              </Button>
+            </li>
+          </ul>
         </Col>
 
         {/* Sağ İçerik Bölümü */}
         <Col sm={10}>
-          <div className="content">
-            {component}
-          </div>
+          <div className="content">{renderComponent()}</div>
         </Col>
       </Row>
     </Container>
   );
 }
 
-export default AdminLayout;
+export default AdminDashboard;

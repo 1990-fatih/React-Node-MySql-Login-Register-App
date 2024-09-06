@@ -9,7 +9,7 @@ app.use(express.json());
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "12345",
+  password: "14785236",
   database: "quiz",
 });
 
@@ -103,6 +103,21 @@ app.post("/signIn", (req, res) => {
   db.query(sql, [values], (err, data) => {
     if (err) return res.json(err);
     return res.json(data);
+  });
+});
+
+app.post("/adminLogin", (req, res) => {
+  const q = "SELECT * FROM admin WHERE `adminEmail`= ? AND `adminPassword`= ?";
+
+  db.query(q, [req.body.adminEmail, req.body.adminPassword], (err, data) => {
+    if (err) {
+      return res.json("err");
+    }
+    if (data.length > 0) {
+      return res.json("Success");
+    } else {
+      return res.json("Faile");
+    }
   });
 });
 

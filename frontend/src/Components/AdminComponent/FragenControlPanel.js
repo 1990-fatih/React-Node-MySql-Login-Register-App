@@ -51,12 +51,6 @@ function FragenControlPanel() {
 
   return (
     <div className="container bg-light py-5 mt-5 rounded-end">
-      <Link to={"/addFrage"}>
-        <button type="button" class="btn btn-secondary float-end btn-sm">
-          Admin Panel
-        </button>
-      </Link>
-
       <h1 className="display-5 fw-bold">Welocme to Quiz App</h1>
       <h1 style={{ fontFamily: "cursive" }}>Fragen List</h1>
 
