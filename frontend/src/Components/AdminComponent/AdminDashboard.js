@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import UserControlPanel from "./UserControlPanel";
-import FragenControlPanel from "./FragenControlPanel";
-import FragenEingabe from "./FragenEingabe";
+import AddQuestion from "./AddQuestion";
+import QuestionList from "./QuestionList";
+import UserList from "./UserList";
 
 function AdminDashboard() {
   const [activeComponent, setActiveComponent] = useState("users");
@@ -10,13 +10,13 @@ function AdminDashboard() {
   const renderComponent = () => {
     switch (activeComponent) {
       case "users":
-        return <UserControlPanel />;
+        return <UserList />;
       case "add-fragenVerwaltung":
-        return <FragenControlPanel />;
+        return <QuestionList />;
       case "add-question":
-        return <FragenEingabe />;
+        return <AddQuestion />;
       default:
-        return <UserControlPanel />;
+        return <UserList />;
     }
   };
 
@@ -61,7 +61,7 @@ function AdminDashboard() {
           </ul>
         </Col>
 
-        {/* Sağ İçerik Bölümü */}
+        
         <Col sm={10}>
           <div className="content">{renderComponent()}</div>
         </Col>
