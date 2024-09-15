@@ -28,7 +28,7 @@ const AddQuestion = () => {
   };
 
   // Formu submit etme
-  const handleSubmit = async (e) => {
+  const handleCreateExam = async (e) => {
     e.preventDefault();
     const newQuestion = {
       examId,
@@ -50,7 +50,7 @@ const AddQuestion = () => {
   };
 
   return (
-    <form className="border rounded-4" onSubmit={handleSubmit}>
+    <form className="border rounded-4" onSubmit={handleCreateExam}>
       <h1>Add New frage</h1>
       <div className="mb-3 text-start fs-5 p-2">
         <label>Quiz Id:</label>

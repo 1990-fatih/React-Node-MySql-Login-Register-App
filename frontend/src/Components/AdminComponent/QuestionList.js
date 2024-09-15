@@ -59,7 +59,7 @@ const QuestionList = () => {
     setChoices(newChoices);
   };
   // Absenden des Formulars (Aktualisierungsprozess)
-  const handleSubmit = async () => {
+  const handleQuestionUpdate = async () => {
     const updatedQuestion = {
       questionText,
       correctAnswer,
@@ -71,21 +71,21 @@ const QuestionList = () => {
         `http://localhost:5000/questions/${selectedQuestion.questionId}`,
         updatedQuestion
       );
-      alert("Soru başarıyla güncellendi");
-      fetchQuestions(); // Güncelleme işleminden sonra soruları tekrar getir
+      alert("Frage erfolgreich aktualisiert");
+      fetchQuestions(); // Schreiben Sie die Fragen nach dem Update neu getir
       handleCloseModal();
     } catch (error) {
-      console.error("Soru güncellenirken hata oluştu:", error);
+      console.error("Beim Aktualisieren der Frage ist ein Fehler aufgetreten:", error);
     }
   };
 
   return (
     <div>
       <div className="container bg-light py-5 mt-5 rounded-end">
-        <h1 className="display-5 fw-bold">Welocme to Quiz App</h1>
-        <h1 style={{ fontFamily: "cursive" }}>Fragen List</h1>
+      
+        <h1 className="display-5 fw-bold">Fragen List</h1>
 
-        <table className="table table-success table-striped">
+        <table className="table table-striped">
           <thead>
             <tr>
               <th scope="col">Frage Id</th>
@@ -109,7 +109,7 @@ const QuestionList = () => {
                   <td>
                     <ul>
                       {question.choices.map((choice, index) => (
-                        <td key={index}>| {choice} </td>
+                        <td className="p-2 border-1 rounded-2 border-success" key={index}>{choice} </td>
                       ))}
                     </ul>
                   </td>
@@ -188,7 +188,7 @@ const QuestionList = () => {
           <Button variant="secondary" onClick={handleCloseModal}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleSubmit}>
+          <Button variant="primary" onClick={handleQuestionUpdate}>
             Update
           </Button>
         </Modal.Footer>

@@ -13,7 +13,7 @@ const UserList = () => {
   const [role, setRole] = useState("user");
   const [password, setPassword] = useState("");
 
-  // Kullanıcıları veritabanından çek
+  // Benutzer aus der Datenbank ziehen
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -23,21 +23,21 @@ const UserList = () => {
       const response = await axios.get("http://localhost:5000/users");
       setUsers(response.data);
     } catch (error) {
-      console.error("Kullanıcıları çekerken hata oluştu:", error);
+      console.error("Fehler beim Abrufen von Benutzern:", error);
     }
   };
 
-  // Kullanıcı silme fonksiyonu
+ // Benutzerlöschfunktion
   const deleteUser = async (userId) => {
     try {
       await axios.delete(`http://localhost:5000/users/${userId}`);
-      fetchUsers(); // Silmeden sonra kullanıcıları tekrar getir
+      fetchUsers(); // Bringen Sie Benutzer nach dem Löschen zurück
     } catch (error) {
-      console.error("Kullanıcı silinirken hata oluştu:", error);
+      console.error("Fehler beim Löschen des Benutzers:", error);
     }
   };
 
-  // Modal açma ve seçilen kullanıcının bilgilerini ayarlama
+ // Öffnen Sie ein Modal und legen Sie die Informationen des ausgewählten Benutzers fest
   const openUpdateModal = (user) => {
     setSelectedUser(user);
     setFirstName(user.first_name);
@@ -45,18 +45,18 @@ const UserList = () => {
     setEmail(user.email);
     setBirthDate(user.birth_date);
     setRole(user.role);
-    setPassword(""); // Şifreyi boş bırak
+    setPassword(""); 
     setShowModal(true);
   };
 
-  // Modal kapama
+ //Modaler Verschluss
   const handleCloseModal = () => {
     setShowModal(false);
     setSelectedUser(null);
   };
 
-  // Formu gönderme (Kullanıcı güncelleme işlemi)
-  const handleSubmit = async () => {
+  // Absenden des Formulars (Benutzeraktualisierungsprozess)
+  const handleUserUpdate = async () => {
     const updatedUser = {
       first_name: firstName,
       last_name: lastName,
@@ -68,28 +68,28 @@ const UserList = () => {
 
     try {
       await axios.put(`http://localhost:5000/users/${selectedUser.id}`, updatedUser);
-      alert("Kullanıcı başarıyla güncellendi");
-      fetchUsers(); // Güncelleme işleminden sonra kullanıcıları tekrar getir
+      alert("Benutzer erfolgreich aktualisierti");
+      fetchUsers(); // Bringen Sie Benutzer nach dem Update zurück
       handleCloseModal();
     } catch (error) {
-      console.error("Kullanıcı güncellenirken hata oluştu:", error);
+      console.error("Fehler beim Aktualisieren des Benutzers:", error);
     }
   };
 
   return (
     <div className="container bg-light py-5 mt-5 rounded-end">
-      <h1 className="display-5 fw-bold">Kullanıcı Yönetimi</h1>
+      <h1 className="display-5 fw-bold">Benutzerverwaltung</h1>
       
       <table className="table table-striped">
         <thead>
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Ad</th>
-            <th scope="col">Soyad</th>
+            <th scope="col">Name</th>
+            <th scope="col">Nachname</th>
             <th scope="col">Email</th>
-            <th scope="col">Doğum Tarihi</th>
-            <th scope="col">Rol</th>
-            <th scope="col" colSpan="2">İşlem</th>
+            <th scope="col">Geburtsdatum</th>
+            <th scope="col">Role</th>
+            <th scope="col" colSpan="2">Operation</th>
           </tr>
         </thead>
         <tbody>
@@ -102,23 +102,23 @@ const UserList = () => {
               <td>{user.birth_date}</td>
               <td>{user.role}</td>
               <td>
-                <Button onClick={() => openUpdateModal(user)}>Güncelle</Button>
-                <Button className="ms-2" onClick={() => deleteUser(user.id)}>Sil</Button>
+                <Button onClick={() => openUpdateModal(user)}>Update</Button>
+                <Button className="ms-2" onClick={() => deleteUser(user.id)}>Delete</Button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      {/* Kullanıcı Güncelleme Modal */}
+      {/* Benutzeraktualisierung Modal */}
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Kullanıcı Güncelle</Modal.Title>
+          <Modal.Title>Benutzer aktualisieren</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group>
-              <Form.Label>Ad</Form.Label>
+              <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
                 value={firstName}
@@ -127,7 +127,7 @@ const UserList = () => {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Soyad</Form.Label>
+              <Form.Label>Nachname</Form.Label>
               <Form.Control
                 type="text"
                 value={lastName}
@@ -145,7 +145,7 @@ const UserList = () => {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Doğum Tarihi</Form.Label>
+              <Form.Label>Geburtsdatum</Form.Label>
               <Form.Control
                 type="date"
                 value={birthDate}
@@ -154,14 +154,14 @@ const UserList = () => {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Rol</Form.Label>
+              <Form.Label>Role</Form.Label>
               <Form.Control
                 as="select"
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
                 required
               >
-                <option value="user">Kullanıcı</option>
+                <option value="user">Benutzer</option>
                 <option value="admin">Admin</option>
               </Form.Control>
             </Form.Group>
@@ -177,10 +177,10 @@ const UserList = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>
-            Kapat
+            Close
           </Button>
-          <Button variant="primary" onClick={handleSubmit}>
-            Güncelle
+          <Button variant="primary" onClick={handleUserUpdate}>
+            Update
           </Button>
         </Modal.Footer>
       </Modal>

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Validation from "./ValidationComp/LoginValidation";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import { Modal } from "react-bootstrap";
@@ -31,9 +30,9 @@ function Home() {
       })
       .catch(error => {
         if (error.response && error.response.data) {
-          setErrorMessage(error.response.data.message); // Hata mesajını göster
+          setErrorMessage(error.response.data.message); // Fehlermeldung anzeigen
         } else {
-          setErrorMessage('Bir hata oluştu.');
+          setErrorMessage('Es ist ein Fehler aufgetreten.');
         }
       });
   };
@@ -44,7 +43,7 @@ function Home() {
     birthDate: "",
     email: "",
     password: "",
-    role: "user", // Varsayılan olarak 'user' seçili
+    role: "user", // 'User' ist standardmäßig ausgewählt
   });
 
   const handleInputChange = (e) => {
@@ -55,7 +54,7 @@ function Home() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleCreateAccount = (e) => {
     e.preventDefault();
 
     axios
@@ -64,25 +63,22 @@ function Home() {
         alert(response.data.message);
       })
       .catch((error) => {
-        console.error("Kullanıcı oluşturulamadı:", error);
-        alert("Kullanıcı oluşturulamadı.");
+        console.error("Benutzer konnte nicht erstellt werden:", error);
+        alert("Benutzer konnte nicht erstellt werden.");
       });
   };
 
   return (
     <div className="container bg-light py-5 mt-5 rounded-end">
-      <h1 className="display-5 fw-bold">Welocme to Quiz App</h1>
-      <p style={{ textAlign: "left" }} className="col-md-8 fs-4">
-        This quiz will contains total 9 questions. Each Question holds 10 Points
-      </p>
-      <h4 style={{ textAlign: "left" }}>Rules:</h4>
-      <ol style={{ textAlign: "left" }}>
-        <li>Correct Question gives you 10 points</li>
-        <li>Incorrect question gives to -10 points</li>
-        <li>You will have 60 sec to answer each question</li>
-        <li>Refereshing the page will reset the Quiz</li>
-      </ol>
-      <h1 style={{ fontFamily: "cursive" }}>All the best!!</h1>
+      <h1 className="display-5 fw-bold">Willkommen zu unserem Quiz App</h1>
+      <br/>
+      
+      <ul style={{ textAlign: "left" }}>
+        <li>In unserem Programm finden Sie Prüfungen für die Niveaus A1, A2 und B1.</li>
+        <li>Sie können Ihr Wissen testen und herausfinden, wie gut Sie die Aufgaben in jeder Stufe meistern.</li>
+        <li>Nach jeder Prüfung erhalten Sie eine detaillierte Auswertung, um zu sehen, wie viele Fragen Sie richtig beantwortet haben.</li>
+      </ul>
+      <h1 style={{ fontFamily: "cursive" }}>Viel Erfolg bei Ihren Prüfungen!</h1>
       <form onSubmit={handleLogin}>
         <div
           style={{ fontFamily: "cursive", textAlign: "left" }}
@@ -125,7 +121,7 @@ function Home() {
 
             type="submit" 
           >
-            Start the Quiz!!
+            Log In
           </button>
         </div>
 
@@ -150,10 +146,9 @@ function Home() {
         </Modal.Header>
         <Modal.Body>
           <div className="container">
-            <h2>Kullanıcı Oluştur</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleCreateAccount}>
               <div className="form-group">
-                <label>İsim:</label>
+                <label>Vorname:</label>
                 <input
                   type="text"
                   name="firstName"
@@ -164,7 +159,7 @@ function Home() {
                 />
               </div>
               <div className="form-group">
-                <label>Soyisim:</label>
+                <label>Nachname:</label>
                 <input
                   type="text"
                   name="lastName"
@@ -175,7 +170,7 @@ function Home() {
                 />
               </div>
               <div className="form-group">
-                <label>Doğum Tarihi:</label>
+                <label>Geburtsdatum:</label>
                 <input
                   type="date"
                   name="birthDate"
@@ -197,7 +192,7 @@ function Home() {
                 />
               </div>
               <div className="form-group">
-                <label>Şifre:</label>
+                <label>Password:</label>
                 <input
                   type="password"
                   name="password"
@@ -208,7 +203,7 @@ function Home() {
                 />
               </div>
               <div className="form-group">
-                <label>Rol:</label>
+                <label>Role:</label>
                 <select
                   name="role"
                   className="form-control"
@@ -216,7 +211,7 @@ function Home() {
                   onChange={handleInputChange}
                   required
                 >
-                  <option value="user">Kullanıcı</option>
+                  <option value="user">User</option>
                   <option value="admin">Admin</option>
                 </select>
               </div>

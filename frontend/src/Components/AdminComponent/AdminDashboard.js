@@ -3,6 +3,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import AddQuestion from "./AddQuestion";
 import QuestionList from "./QuestionList";
 import UserList from "./UserList";
+import UserScoreComponent from "./UserScoreComponent";
 
 function AdminDashboard() {
   const [activeComponent, setActiveComponent] = useState("users");
@@ -15,6 +16,8 @@ function AdminDashboard() {
         return <QuestionList />;
       case "add-question":
         return <AddQuestion />;
+        case "user-score":
+        return <UserScoreComponent />;
       default:
         return <UserList />;
     }
@@ -56,6 +59,16 @@ function AdminDashboard() {
                 onClick={() => setActiveComponent("add-question")}
               >
                 Fragen Eingabe
+              </Button>
+            </li>
+            <li class="list-group-item">
+              {" "}
+              <Button
+                variant="primary"
+                block
+                onClick={() => setActiveComponent("user-score")}
+              >
+                Siehe Ergebnisse 
               </Button>
             </li>
           </ul>
