@@ -91,7 +91,7 @@ const QuestionList = () => {
               <th scope="col">Frage Id</th>
               <th scope="col">Frage Text</th>
               <th scope="col">Correct Antwort </th>
-              <th scope="col">Antwort</th>
+              <th scope="col">Antworten</th>
 
               <th scope="col" colSpan={"2"}>
                 Process
@@ -140,7 +140,7 @@ const QuestionList = () => {
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>
-            <h1 style={{ fontFamily: "cursive" }}>Fragen Update</h1>
+            <h1 style={{ fontFamily: "cursive" }}>Frage Update</h1>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
