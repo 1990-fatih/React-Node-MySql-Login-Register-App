@@ -4,6 +4,7 @@ import AddQuestion from "./AddQuestion";
 import QuestionList from "./QuestionList";
 import UserList from "./UserList";
 import UserScoreComponent from "./UserScoreComponent";
+import ExamVerwaltung from "./ExamVerwaltung";
 
 function AdminDashboard() {
   const [activeComponent, setActiveComponent] = useState("users");
@@ -16,8 +17,10 @@ function AdminDashboard() {
         return <QuestionList />;
       case "add-question":
         return <AddQuestion />;
-        case "user-score":
+      case "user-score":
         return <UserScoreComponent />;
+      case "examVerwaltung":
+        return <ExamVerwaltung />;
       default:
         return <UserList />;
     }
@@ -69,6 +72,16 @@ function AdminDashboard() {
                 onClick={() => setActiveComponent("user-score")}
               >
                 Siehe Ergebnisse 
+              </Button>
+            </li>
+            <li class="list-group-item">
+              {" "}
+              <Button
+                variant="primary"
+                block
+                onClick={() => setActiveComponent("examVerwaltung")}
+              >
+                Exam Verwaltung 
               </Button>
             </li>
           </ul>

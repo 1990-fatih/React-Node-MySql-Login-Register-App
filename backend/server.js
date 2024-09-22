@@ -10,8 +10,8 @@ app.use(express.json());
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "14785236",
-  database: "signup",
+  password: "12345",
+  database: "bbz_quiz_app_db",
 });
 
 //Starten Sie den Server
@@ -181,7 +181,10 @@ app.post("/api/users", (req, res) => {
         console.error("Benutzer konnte nicht erstellt werden:", err);
         return res
           .status(500)
-          .send({ success: false, message: "Benutzer konnte nicht erstellt werden." });
+          .send({
+            success: false,
+            message: "Benutzer konnte nicht erstellt werden.",
+          });
       }
 
       res
@@ -260,7 +263,10 @@ app.post("/api/login", (req, res) => {
       // Kullanıcı bulunamadıysa
       return res
         .status(401)
-        .send({ success: false, message: "Ungültige E-Mail-Adresse oder ungültiges Passwort" });
+        .send({
+          success: false,
+          message: "Ungültige E-Mail-Adresse oder ungültiges Passwort",
+        });
     }
 
     // Kullanıcı bulundu, rolüne göre cevap gönder
@@ -310,7 +316,9 @@ app.put("/users/:id", (req, res) => {
     (err) => {
       if (err) {
         console.error("Fehler beim Aktualisieren des Benutzers:", err);
-        return res.status(500).send("Benutzer konnte nicht aktualisiert werden.");
+        return res
+          .status(500)
+          .send("Benutzer konnte nicht aktualisiert werden.");
       }
       res.send("Der Benutzer wurde erfolgreich aktualisiert.");
     }
@@ -383,30 +391,40 @@ app.post("/api/save-result", async (req, res) => {
       .send({ message: "Sonuçlar kaydedilirken bir hata oluştu." });
   }
 });
-//Skor Bilgisini Getirme
-app.get("/user/:userId/score", (req, res) => {
-  const userId = req.params.userId;
-  const query = "SELECT score FROM user_scores WHERE user_id = ?"; // Skorlar user_scores tablosundan alınır
-
-  db.query(query, [userId], (err, result) => {
+//Skor Bilgisini Silme
+app.delete("/score/:user_id/", (req, res) => {
+ 
+  const query = "DELETE FROM exam_results WHERE user_id = ?";
+  db.query(query, [req.params.user_id], (err) => {
     if (err) {
-      console.error("Skor alınırken hata oluştu:", err);
-      return res.status(500).json({ error: "Veritabanı hatası" });
-    }
 
-    if (result.length === 0) {
-      return res.status(404).json({ error: "Kullanıcının skoru bulunamadı" });
+      console.error("id server",req.params.id )
+      console.error("Fehler beim Löschen des Benutzers:", err);
+      return res.status(500).send("Der Benutzer konnte nicht gelöscht werden.");
     }
-
-    res.json({ score: result[0].score });
+    res.send("Der Benutzer wurde erfolgreich gelöscht.");
   });
 });
 
-app.get("/users/scores", (req, res) => {
+app.delete("/exam_id/:exan_id/", (req, res) => {
+ 
+  const query = "DELETE FROM exam_results WHERE id = ?";
+  db.query(query, [req.params.id], (err) => {
+    if (err) {
+
+      console.error("id server",req.params.id )
+      console.error("Fehler beim Löschen des Benutzers:", err);
+      return res.status(500).send("Der Benutzer konnte nicht gelöscht werden.");
+    }
+    res.send("Der Benutzer wurde erfolgreich gelöscht.");
+  });
+});
+
+app.get("/:users/scores", (req, res) => {
   const query = `
     SELECT users.id, users.first_name, users.last_name, exam_results.score
-FROM users
-LEFT JOIN exam_results ON users.id = exam_results.user_id;`;
+    FROM users
+    LEFT JOIN exam_results ON users.id = exam_results.user_id;`;
 
   db.query(query, (err, result) => {
     if (err) {
@@ -416,4 +434,32 @@ LEFT JOIN exam_results ON users.id = exam_results.user_id;`;
 
     res.json(result); // Tüm kullanıcılar ve skorlar JSON olarak döndürülür
   });
+});
+
+app.post("/api/exam", (req, res) => {
+  const { title, description} = req.body;
+
+  const createExamQuery = `
+    INSERT INTO users (title, description)
+    VALUES (?, ?)
+  `;
+  db.query(
+    createExamQuery,
+    [title, description],
+    (err, result) => {
+      if (err) {
+        console.error("Exam konnte nicht erstellt werden:", err);
+        return res
+          .status(500)
+          .send({
+            success: false,
+            message: "Exam konnte nicht erstellt werden.",
+          });
+      }
+
+      res
+        .status(201)
+        .send({ success: true, message: "Exam erfolgreich erstellt!" });
+    }
+  );
 });

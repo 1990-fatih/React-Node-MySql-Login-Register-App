@@ -5,8 +5,8 @@ const UserScoreList = () => {
   const [users, setUsers] = useState([]);
 
  // Funktion zum Abrufen der Ergebnisse aller Benutzer
-  useEffect(() => {
-    axios.get("http://localhost:5000/users/scores")
+  useEffect((userId) => {
+    axios.get(`http://localhost:5000/${userId}/scores`)
       .then(response => {
         setUsers(response.data); //Alle Benutzer und ihre Ergebnisse werden aufgezeichnet
 
@@ -16,9 +16,11 @@ const UserScoreList = () => {
   }, []);
 
   // Benutzerfunktion löschen
+  
   const handleDeleteUser = (userId) => {
-    axios.delete(`http://localhost:5000/users/${userId}`)
+    axios.delete(`http://localhost:5000/score/${userId}`)
       .then(() => {
+        console.log("id hier ",userId)
         alert("Der Benutzer wurde erfolgreich gelöscht.");
         setUsers(users.filter(user => user.id !== userId)); //Entfernen des Benutzers aus der Tabelle
       })
