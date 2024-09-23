@@ -10,8 +10,8 @@ app.use(express.json());
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "12345",
-  database: "bbz_quiz_app_db",
+  password: "14785236",
+  database: "signup",
 });
 
 //Starten Sie den Server
@@ -406,13 +406,11 @@ app.delete("/score/:user_id/", (req, res) => {
   });
 });
 
-app.delete("/exam_id/:exan_id/", (req, res) => {
- 
-  const query = "DELETE FROM exam_results WHERE id = ?";
+app.delete("/exam/:id", (req, res) => {
+  const query = "DELETE FROM exams WHERE id = ?";
   db.query(query, [req.params.id], (err) => {
     if (err) {
-
-      console.error("id server",req.params.id )
+      console.error("id server", req.params.id);
       console.error("Fehler beim Löschen des Benutzers:", err);
       return res.status(500).send("Der Benutzer konnte nicht gelöscht werden.");
     }
@@ -436,11 +434,11 @@ app.get("/:users/scores", (req, res) => {
   });
 });
 
-app.post("/api/exam", (req, res) => {
+app.post("/api/examCreate", (req, res) => {
   const { title, description} = req.body;
-
+console.log("server deneme : ",req.body)
   const createExamQuery = `
-    INSERT INTO users (title, description)
+    INSERT INTO exams (title, description)
     VALUES (?, ?)
   `;
   db.query(
@@ -462,4 +460,20 @@ app.post("/api/exam", (req, res) => {
         .send({ success: true, message: "Exam erfolgreich erstellt!" });
     }
   );
+});
+
+app.put("/exam/:id", (req, res) => {
+  const { title, description } = req.body; 
+  const query = `
+    UPDATE exams SET title = ?, description = ? WHERE id = ?
+  `;
+  db.query(query, [title, description, req.params.id], (err) => {
+    if (err) {
+      console.error("Fehler beim Aktualisieren des Exams:", err);
+      return res
+        .status(500)
+        .send("Exam konnte nicht aktualisiert werden.");
+    }
+    res.send("Das Exam wurde erfolgreich aktualisiert.");
+  });
 });

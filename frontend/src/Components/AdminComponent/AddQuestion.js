@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 const AddQuestion = () => {
   const [examId, setExamId] = useState(""); // Dinamik olarak sınav ID'si alınacak
@@ -47,6 +45,7 @@ const AddQuestion = () => {
       console.error("Soru eklenirken hata oluştu:", error);
       alert("Soru eklenirken hata oluştu");
     }
+    e.preventDefault();
   };
 
   return (
